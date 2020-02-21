@@ -1,0 +1,23 @@
+@require './variable.styl';
+@require '../style/_common.styl';
+
+// for html
+scroll-view()
+    &, body, #app, #app > .q-layout, .q-page-container, .q-page
+        width: 100%; height: 100%;
+        overflow-x: hidden;
+
+    &, body, #app
+        overflow-y: hidden;
+
+// for html
+static-view()
+    // height relay
+    &, body, #app, #app > .q-layout, .q-page-container, .q-page
+        width: 100%; height: 100%;
+        overflow-x: hidden; overflow-y: hidden;
+
+main-pane($max-width = 100%)
+    width: 100%; max-width: $max-width;
+    height: 100%;
+    x-center();
