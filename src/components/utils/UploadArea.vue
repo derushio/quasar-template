@@ -38,29 +38,38 @@ Vue.component('UploadArea', UploadArea);
 <style lang="stylus" scoped>
 @require '~@/assets/styles/entry/variable.styl';
 
-.upload-area
-    .upload
+.upload-area {
+    .upload {
         position: relative;
         display: block;
-        width: 100%; height: 200px;
+        width: 100%;
+        height: 200px;
         border: 1px solid $border-primary;
         border-style: dashed;
         background-color: #F9F9F9;
 
-        &.dragover
+        &.dragover {
             background-color: #D9D9D9;
+        }
 
-        & > div
+        & > div {
             position: absolute;
             width: 100%;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
 
-            span
+            span {
                 display: block;
                 width: 100%;
+            }
+        }
+    }
 
-    .upload-input
-        width: 0; height: 0;
+    .upload-input {
+        width: 0;
+        height: 0;
         overflow: hidden;
+    }
+}
 </style>

@@ -41,5 +41,6 @@ Vue.component('HelloWorld', HelloWorld);
 <style lang="stylus" scoped>
 @require '~@/assets/styles/entry/variable.styl';
 
-.hello-world {}
+.hello-world {
+}
 </style>

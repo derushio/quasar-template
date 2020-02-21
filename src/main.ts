@@ -16,5 +16,5 @@ loggerApiCustomize(Vue);
 new Vue({
     router,
     store,
-    render: (h: any) => h(App),
-} as any).$mount('#app');
+    render: h => h(App),
+}).$mount('#app');

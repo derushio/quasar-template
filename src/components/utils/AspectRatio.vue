@@ -36,15 +36,21 @@ Vue.component('AspectRatio', AspectRatio);
 <style lang="stylus" scoped>
 @require '~@/assets/styles/entry/_variable.styl';
 
-.aspect-ratio
-    .ratio
+.aspect-ratio {
+    .ratio {
         position: relative;
+    }
 
-    .frame
+    .frame {
         position: absolute;
-        left: 0; top: 0;
-        width: 100%; height: 100%;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
 
-        & > *
+        & > * {
             overflow: hidden;
+        }
+    }
+}
 </style>

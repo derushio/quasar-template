@@ -35,5 +35,6 @@ Vue.component('SampleDialog', SampleDialog);
 <style lang="stylus" scoped>
 @require '~@/assets/styles/entry/variable.styl';
 
-.sample-dialog {}
+.sample-dialog {
+}
 </style>
