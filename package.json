@@ -7,7 +7,11 @@
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
         "test:e2e": "vue-cli-service test:e2e",
-        "lint": "vue-cli-service lint"
+        "lint": "vue-cli-service lint",
+        "create:vue": "yarn ts-node -r esm tools/create_vue",
+        "create:view": "yarn ts-node -r esm tools/create_vue --type='view'",
+        "create:compo": "yarn ts-node -r esm tools/create_vue --type='component'",
+        "create:dialog": "yarn ts-node -r esm tools/create_vue --type='dialog'"
     },
     "dependencies": {
         "@quasar/extras": "^1.5.2",
@@ -27,6 +31,7 @@
     "devDependencies": {
         "@types/jest": "^25.1.3",
         "@types/lodash": "^4.14.149",
+        "@types/mkdirp": "^1.0.0",
         "@types/shortid": "^0.0.29",
         "@typescript-eslint/eslint-plugin": "^2.20.0",
         "@typescript-eslint/parser": "^2.20.0",
@@ -45,9 +50,12 @@
         "eslint": "^6.8.0",
         "eslint-plugin-prettier": "^3.1.2",
         "eslint-plugin-vue": "^6.2.1",
+        "esm": "^3.2.25",
+        "mkdirp": "^1.0.3",
         "prettier": "^1.19.1",
         "stylus": "^0.54.7",
         "stylus-loader": "^3.0.2",
+        "ts-node": "^8.6.2",
         "typescript": "~3.8.2",
         "vue-cli-plugin-pug": "^1.0.7",
         "vue-template-compiler": "^2.6.11"
