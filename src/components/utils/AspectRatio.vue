@@ -3,7 +3,6 @@
     .ratio(ref='ratio')
         .frame
             slot
-
 </template>
 
 <script lang="ts">

@@ -6,7 +6,6 @@
         div
             slot
     input.block.upload-input(:id='id' type='file' @change='onFileChange')
-
 </template>
 
 <script lang="ts">

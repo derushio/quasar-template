@@ -1,7 +1,6 @@
 <template lang="pug">
 #$__CLASS_NAME__$.q-layout-padding
     .main-pane
-
 </template>
 
 <script lang="ts">

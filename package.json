@@ -11,6 +11,7 @@
         "create:vue": "yarn ts-node -r esm tools/create_vue",
         "create:view": "yarn ts-node -r esm tools/create_vue --type='view'",
         "create:compo": "yarn ts-node -r esm tools/create_vue --type='component'",
+        "create:layout": "yarn ts-node -r esm tools/create_vue --type='layout'",
         "create:dialog": "yarn ts-node -r esm tools/create_vue --type='dialog'"
     },
     "dependencies": {

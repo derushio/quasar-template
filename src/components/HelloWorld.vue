@@ -2,7 +2,6 @@
 .hello-world
     p {{ msg }}
     q-btn(@click='onClick') button
-
 </template>
 
 <script lang="ts">

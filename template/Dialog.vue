@@ -6,7 +6,6 @@ q-card.$__VUE_NAME__$
     q-card-actions(align='right')
         q-btn(flat color='warning' @click='$emit("cancel")') CANCEL
         q-btn(flat color='positive' @click='$emit("ok", text)') OK
-
 </template>
 
 <script lang="ts">

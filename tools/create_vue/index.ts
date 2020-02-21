@@ -67,7 +67,12 @@ async function main() {
 
     try {
         const type = ARGS['type'] as string;
-        if (type !== 'view' && type !== 'component' && type !== 'dialog') {
+        if (
+            type !== 'view' &&
+            type !== 'component' &&
+            type !== 'layout' &&
+            type !== 'dialog'
+        ) {
             throw new Error(`typeが不正です: ${type}`);
         }
 
