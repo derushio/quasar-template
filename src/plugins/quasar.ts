@@ -43,10 +43,14 @@ Vue.use(Quasar, {
         QItemSection,
         QItemLabel,
     },
-    directives: {
-    },
+    directives: {},
     plugins: {
-        Loading, Dialog, BottomSheet, LoadingBar, Notify,
-        AppFullscreen, AppVisibility,
+        Loading,
+        Dialog,
+        BottomSheet,
+        LoadingBar,
+        Notify,
+        AppFullscreen,
+        AppVisibility,
     },
 });

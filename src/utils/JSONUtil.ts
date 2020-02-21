@@ -17,5 +17,7 @@ export default class JSONUtil {
         return result;
     }
 
-    private constructor() {}
+    private constructor() {
+        // pass;
+    }
 }

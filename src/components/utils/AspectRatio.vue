@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .aspect-ratio
     .ratio(ref='ratio')
         .frame
@@ -6,7 +6,7 @@
 
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
@@ -23,16 +23,17 @@ export default class AspectRatio extends Vue {
     }
 
     protected changeRatio() {
-        if (this.ratio == null) { return; }
+        if (this.ratio == null) {
+            return;
+        }
         const el = this.$refs.ratio as HTMLElement;
         el.style.paddingTop = `${(1 / this.ratio) * 100}%`;
     }
 }
 Vue.component('AspectRatio', AspectRatio);
-
 </script>
 
-<style lang='stylus' scoped>
+<style lang="stylus" scoped>
 @require '~@/assets/styles/entry/_variable.styl';
 
 .aspect-ratio
@@ -46,5 +47,4 @@ Vue.component('AspectRatio', AspectRatio);
 
         & > *
             overflow: hidden;
-
 </style>

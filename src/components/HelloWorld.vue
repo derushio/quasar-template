@@ -1,11 +1,11 @@
-<template lang='pug'>
+<template lang="pug">
 .hello-world
     p {{ msg }}
     q-btn(@click='onClick') button
 
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { aswait } from '@/utils/AsyncTimeout';
 import { QBtn } from 'quasar';
@@ -24,7 +24,9 @@ export default class HelloWorld extends Vue {
             await aswait(1000);
         });
 
-        const dialog = this.$qqDialog.component(SampleDialog, { props: { text: 'hogehoge' } });
+        const dialog = this.$qqDialog.component(SampleDialog, {
+            props: { text: 'hogehoge' },
+        });
         await aswait(1000);
         dialog.ok();
     }
@@ -34,12 +36,10 @@ export default class HelloWorld extends Vue {
     }
 }
 Vue.component('HelloWorld', HelloWorld);
-
 </script>
 
-<style lang='stylus' scoped>
+<style lang="stylus" scoped>
 @require '~@/assets/styles/entry/variable.styl';
 
 .hello-world {}
-
 </style>

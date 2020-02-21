@@ -1,13 +1,18 @@
 export enum LOG_LEVEL {
-    NONE, LOG, INFO, DEBUG, WARN, ERROR,
+    NONE,
+    LOG,
+    INFO,
+    DEBUG,
+    WARN,
+    ERROR,
 }
 
 export default class Logger {
     public history = [] as Array<{
-        time: string,
-        level: string,
-        message: any,
-        optionalParams: any[],
+        time: string;
+        level: string;
+        message: any;
+        optionalParams: any[];
     }>;
 
     protected logLevel = LOG_LEVEL.ERROR;
@@ -60,11 +65,16 @@ export default class Logger {
         }
     }
 
-    protected logger(level: LOG_LEVEL, message?: any, ...optionalParams: any[]) {
+    protected logger(
+        level: LOG_LEVEL,
+        message?: any,
+        ...optionalParams: any[]
+    ) {
         this.history.unshift({
             time: new Date().toString(),
             level: LOG_LEVEL[level],
-            message, optionalParams,
+            message,
+            optionalParams,
         });
         this.history = this.history.slice(0, this.historyNum);
     }

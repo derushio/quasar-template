@@ -18,7 +18,7 @@ export default interface QQBottomSheetOptions {
     /**
      * Array of Objects, each Object defining an action
      */
-    actions?: Array<(QQBottomSheetAction | {})>;
+    actions?: Array<QQBottomSheetAction | {}>;
     /**
      * Display actions as a grid instead of as a list
      */

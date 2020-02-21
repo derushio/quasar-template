@@ -1,9 +1,19 @@
 import Vue, { VueConstructor } from 'vue';
-import { QDialog, QDialogOptions, QCard, QCardSection, QSeparator, QCardActions, QBtn, Dialog } from 'quasar';
+import {
+    QDialog,
+    QDialogOptions,
+    QCard,
+    QCardSection,
+    QSeparator,
+    QCardActions,
+    QBtn,
+} from 'quasar';
 
 import ExtendableError from 'extendable-error';
 
-import QQDialogSize, { QQDialogWidth } from '@/plugins/quasarApiCustomize/QQDialogSize';
+import QQDialogSize, {
+    QQDialogWidth,
+} from '@/plugins/quasarApiCustomize/QQDialogSize';
 import { aswait } from '@/utils/AsyncTimeout';
 import lo from 'lodash';
 
@@ -14,18 +24,27 @@ export class QQDialogCancelError extends ExtendableError {
 }
 
 type DialogView = Vue & {
-    show: () => any, hide: () => any,
-    ok: (data: any) => any, cancel: () => any,
+    show: () => any;
+    hide: () => any;
+    ok: (data: any) => any;
+    cancel: () => any;
 };
 
 type OKPromise<T> = Promise<T> & { ok: () => void };
 
 enum DialogState {
-    SHOW, OK, CANCEL,
+    SHOW,
+    OK,
+    CANCEL,
 }
 
 export default {
-    open(this: Vue, options: QDialogOptions, handleError = true, def?: any): OKPromise<any> {
+    open(
+        this: Vue,
+        options: QDialogOptions,
+        handleError = true,
+        def?: any,
+    ): OKPromise<any> {
         const dialog = this.$q.dialog(options);
         const promise = new Promise<any>(async (resolve, reject) => {
             dialog
@@ -48,10 +67,12 @@ export default {
                 });
         });
 
-        return Object.assign(promise, { ok: () => {
-            handleError = false;
-            dialog.hide();
-        } });
+        return Object.assign(promise, {
+            ok: () => {
+                handleError = false;
+                dialog.hide();
+            },
+        });
     },
 
     alert(this: Vue, options: string | QDialogOptions): OKPromise<void> {
@@ -65,20 +86,26 @@ export default {
     confirm(this: Vue, options: string | QDialogOptions): OKPromise<boolean> {
         let dialog: OKPromise<any>;
         if (typeof options === String.name.toLowerCase()) {
-            dialog = this.$qqDialog.open({
-                message: options as string,
-                cancel: true,
-                persistent: true,
-            }, true);
+            dialog = this.$qqDialog.open(
+                {
+                    message: options as string,
+                    cancel: true,
+                    persistent: true,
+                },
+                true,
+            );
         } else {
-            dialog = this.$qqDialog.open({
-                cancel: true,
-                persistent: true,
-                ...(options as QDialogOptions),
-            }, true);
+            dialog = this.$qqDialog.open(
+                {
+                    cancel: true,
+                    persistent: true,
+                    ...(options as QDialogOptions),
+                },
+                true,
+            );
         }
 
-        const promise = new Promise<boolean>(async (resolve, reject) => {
+        const promise = new Promise<boolean>(async () => {
             try {
                 await dialog;
             } catch {
@@ -91,35 +118,52 @@ export default {
         return Object.assign(promise, { ok: dialog.ok });
     },
 
-    prompt(this: Vue, options: string | QDialogOptions, handleError = true): Promise<string> {
+    prompt(
+        this: Vue,
+        options: string | QDialogOptions,
+        handleError = true,
+    ): Promise<string> {
         let dialog: OKPromise<any>;
         if (typeof options === String.name.toLowerCase()) {
-            dialog = this.$qqDialog.open({
-                message: options as string,
-                cancel: true,
-                prompt: {
-                    model: '',
-                    type: 'text',
+            dialog = this.$qqDialog.open(
+                {
+                    message: options as string,
+                    cancel: true,
+                    prompt: {
+                        model: '',
+                        type: 'text',
+                    },
                 },
-            }, handleError, '');
+                handleError,
+                '',
+            );
         } else {
-            dialog = this.$qqDialog.open({
-                cancel: true,
-                prompt: {
-                    model: '',
-                    type: 'text',
+            dialog = this.$qqDialog.open(
+                {
+                    cancel: true,
+                    prompt: {
+                        model: '',
+                        type: 'text',
+                    },
+                    ...(options as QDialogOptions),
                 },
-                ...(options as QDialogOptions),
-            }, handleError, '');
+                handleError,
+                '',
+            );
         }
 
         return dialog;
     },
 
-    component(this: Vue, dialogComponent: VueConstructor,
-            optionsProps: QDialogOptions & { props?: any } = {},
-            size: QQDialogSize = 'sm', needCard: boolean = false,
-            handleError = true, def = undefined as any): Promise<any> {
+    component(
+        this: Vue,
+        dialogComponent: VueConstructor,
+        optionsProps: QDialogOptions & { props?: any } = {},
+        size: QQDialogSize = 'sm',
+        needCard = false,
+        handleError = true,
+        def = undefined as any,
+    ): Promise<any> {
         let dialog: DialogView;
         const promise = new Promise<any>(async (resolve, reject) => {
             const o = lo.clone(optionsProps);
@@ -149,8 +193,17 @@ export default {
             this.$q.dialog({
                 ...options,
                 component: Vue.extend({
-                    components: { QDialog, QCard, QCardSection, QSeparator, QCardActions, QBtn, dialogComponent },
-                    router: this.$router, store: this.$store,
+                    components: {
+                        QDialog,
+                        QCard,
+                        QCardSection,
+                        QSeparator,
+                        QCardActions,
+                        QBtn,
+                        dialogComponent,
+                    },
+                    router: this.$router,
+                    store: this.$store,
                     // For vue-i18n
                     // i18n: this.$i18n,
                     beforeCreate(this: DialogView) {
@@ -182,76 +235,111 @@ export default {
                             cancel.call(this);
                         },
                     },
-                    render: (h) => {
-                        return h('q-dialog', {
-                            ref: 'dialog',
-                            on: {
-                                hide(this: null) {
-                                    if (dialog.$data.state === DialogState.SHOW) {
-                                        dialog.cancel();
-                                    }
+                    render: h => {
+                        return h(
+                            'q-dialog',
+                            {
+                                ref: 'dialog',
+                                on: {
+                                    hide(this: null) {
+                                        if (
+                                            dialog.$data.state ===
+                                            DialogState.SHOW
+                                        ) {
+                                            dialog.cancel();
+                                        }
+                                    },
                                 },
                             },
-                        }, needCard ? [
-                            h('q-card', {
-                                staticClass: 'q-dialog-plugin' +
-                                    (this.$data.dark === true ? ' q-dialog-plugin--dark' : ''),
-                                    style: `width: ${ QQDialogWidth[size] }; max-width: 100%;`,
-                            }, [
-                                h('q-card-section', [
-                                    h('dialog-component', {
-                                        props,
-                                        on: {
-                                            ok(this: Vue, data: any) {
-                                                dialog.ok(data);
-                                            },
-                                            cancel(this: Vue) {
-                                                dialog.cancel();
-                                            },
-                                        },
-                                    }),
-                                ]),
-                                h('q-separator'),
-                                h('q-card-actions', {
-                                    props: { align: 'right' },
-                                }, [
-                                    h('q-btn', {
-                                        props: {
-                                            flat: true,
-                                            color: 'positive',
-                                        },
-                                        on: {
-                                            click: () => {
-                                                dialog.ok(undefined);
-                                            },
-                                        },
-                                }, [ 'OK' ]),
-                                ]),
-                            ]),
-                        ] : [
-                            h('dialog-component', {
-                                props,
-                                on: {
-                                    ok(this: Vue, data: any) {
-                                        dialog.ok(data);
-                                    },
-                                    cancel(this: Vue) {
-                                        dialog.cancel();
-                                    },
-                                },
-                                staticClass: 'q-dialog-plugin' +
-                                    (this.$data.dark === true ? ' q-dialog-plugin--dark' : ''),
-                                    style: `width: ${ QQDialogWidth[size] }; max-width: 100%;`,
-                            }),
-                        ]);
+                            needCard
+                                ? [
+                                      h(
+                                          'q-card',
+                                          {
+                                              staticClass:
+                                                  'q-dialog-plugin' +
+                                                  (this.$data.dark === true
+                                                      ? ' q-dialog-plugin--dark'
+                                                      : ''),
+                                              style: `width: ${QQDialogWidth[size]}; max-width: 100%;`,
+                                          },
+                                          [
+                                              h('q-card-section', [
+                                                  h('dialog-component', {
+                                                      props,
+                                                      on: {
+                                                          ok(
+                                                              this: Vue,
+                                                              data: any,
+                                                          ) {
+                                                              dialog.ok(data);
+                                                          },
+                                                          cancel(this: Vue) {
+                                                              dialog.cancel();
+                                                          },
+                                                      },
+                                                  }),
+                                              ]),
+                                              h('q-separator'),
+                                              h(
+                                                  'q-card-actions',
+                                                  {
+                                                      props: { align: 'right' },
+                                                  },
+                                                  [
+                                                      h(
+                                                          'q-btn',
+                                                          {
+                                                              props: {
+                                                                  flat: true,
+                                                                  color:
+                                                                      'positive',
+                                                              },
+                                                              on: {
+                                                                  click: () => {
+                                                                      dialog.ok(
+                                                                          undefined,
+                                                                      );
+                                                                  },
+                                                              },
+                                                          },
+                                                          ['OK'],
+                                                      ),
+                                                  ],
+                                              ),
+                                          ],
+                                      ),
+                                  ]
+                                : [
+                                      h('dialog-component', {
+                                          props,
+                                          on: {
+                                              ok(this: Vue, data: any) {
+                                                  dialog.ok(data);
+                                              },
+                                              cancel(this: Vue) {
+                                                  dialog.cancel();
+                                              },
+                                          },
+                                          staticClass:
+                                              'q-dialog-plugin' +
+                                              (this.$data.dark === true
+                                                  ? ' q-dialog-plugin--dark'
+                                                  : ''),
+                                          style: `width: ${QQDialogWidth[size]}; max-width: 100%;`,
+                                      }),
+                                  ],
+                        );
                     },
                 }),
             });
         });
 
-        return Object.assign(promise, { ok: () => {
-            handleError = false;
-            dialog.hide();
-        } });
+        return Object.assign(promise, {
+            ok: () => {
+                handleError = false;
+                dialog.hide();
+            },
+        });
     },
 };

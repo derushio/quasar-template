@@ -1,7 +1,10 @@
 import Vue from 'vue';
 
-export default function(MyVue: typeof Vue,
-        property: string, component: { [key: string]: any }) {
+export default function(
+    MyVue: typeof Vue,
+    property: string,
+    component: { [key: string]: any },
+) {
     MyVue.prototype.__defineGetter__(property, function(this: Vue) {
         const actions = {} as { [key: string]: any };
         for (const key of Object.keys(component)) {

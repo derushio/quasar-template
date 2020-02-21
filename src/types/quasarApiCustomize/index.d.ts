@@ -1,4 +1,3 @@
-import _Vue from 'vue';
 import Logger from '@/utils/Logger';
 
 import QQLoading from '@/types/quasarApiCustomize/QQLoading';

@@ -17,5 +17,7 @@ export default class ArrayUtil {
         return [...Array(end).keys()].slice(start);
     }
 
-    protected constructor() {}
+    protected constructor() {
+        // pass;
+    }
 }

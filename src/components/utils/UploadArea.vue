@@ -1,4 +1,4 @@
-<template lang='pug'>
+<template lang="pug">
 .upload-area
     label.upload.cursor-pointer(:for='id' :class='{ dragover: dragover }'
             @dragover.prevent='dragover = true' @dragleave.prevent='dragover = false'
@@ -9,7 +9,7 @@
 
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Component, Vue, PropSync } from 'vue-property-decorator';
 import shortid from 'shortid';
 
@@ -33,10 +33,9 @@ export default class UploadArea extends Vue {
     }
 }
 Vue.component('UploadArea', UploadArea);
-
 </script>
 
-<style lang='stylus' scoped>
+<style lang="stylus" scoped>
 @require '~@/assets/styles/entry/variable.styl';
 
 .upload-area
@@ -64,5 +63,4 @@ Vue.component('UploadArea', UploadArea);
     .upload-input
         width: 0; height: 0;
         overflow: hidden;
-
 </style>
