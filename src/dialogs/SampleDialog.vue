@@ -7,7 +7,6 @@ q-card.sample-dialog
     q-card-actions(align='right')
         q-btn(flat color='warning' @click='$emit("cancel")') CANCEL
         q-btn(flat color='positive' @click='$emit("ok", input)') OK
-
 </template>
 
 <script lang="ts">
