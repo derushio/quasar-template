@@ -14,8 +14,8 @@ module.exports = {
         ecmaVersion: 2020,
     },
     rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-console': 0,
+        'no-debugger': 0,
         'no-async-promise-executor': 0,
         '@typescript-eslint/no-explicit-any': 0,
         '@typescript-eslint/no-non-null-assertion': 0,

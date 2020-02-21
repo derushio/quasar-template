@@ -20,7 +20,7 @@ export default interface QQDialog {
     ) => Promise<string> & { ok: () => void };
     component: (
         component: VueConstructor,
-        optionsProps: QDialogOptions & { props?: any } = {},
+        optionsProps: QDialogOptions & { props?: any },
         size?: QQDialogSize,
         needCard?: boolean,
     ) => Promise<any> & { ok: () => void };

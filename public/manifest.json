@@ -1,0 +1,15 @@
+{
+  "name": "quasar-template",
+  "short_name": "quasar-template",
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "16x16",
+      "type": "image/vnd.microsoft.icon"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#4DBA87"
+}

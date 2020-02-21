@@ -1,7 +1,6 @@
 import Vue from 'vue';
 
-import {
-    Quasar,
+import Quasar, {
     QLayout,
     QHeader,
     QDrawer,
@@ -25,7 +24,7 @@ import {
 } from 'quasar';
 import langJa from 'quasar/lang/ja';
 
-Vue.use(Quasar, {
+Vue.use(Quasar as any, {
     lang: langJa,
     config: {},
     components: {

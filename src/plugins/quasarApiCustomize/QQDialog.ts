@@ -227,12 +227,12 @@ export default {
                         async ok(this: Vue, data: any) {
                             dialog.$data.state = DialogState.OK;
                             await dialog.hide();
-                            ok.call(this, data);
+                            ok.call(this as any, data);
                         },
                         async cancel(this: Vue) {
                             dialog.$data.state = DialogState.CANCEL;
                             await dialog.hide();
-                            cancel.call(this);
+                            cancel.call(this as any);
                         },
                     },
                     render: h => {
