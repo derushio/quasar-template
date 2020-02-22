@@ -105,14 +105,15 @@ export default {
             );
         }
 
-        const promise = new Promise<boolean>(async () => {
+        const promise = new Promise<boolean>(async resolve => {
             try {
                 await dialog;
             } catch {
-                return false;
+                resolve(false);
+                return;
             }
 
-            return true;
+            resolve(true);
         });
 
         return Object.assign(promise, { ok: dialog.ok });
