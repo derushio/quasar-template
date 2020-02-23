@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { quasarApiCustomize } from '../../src/plugins/quasarApiCustomize';
+import { quasarApiCustomize } from '@/plugins/quasarApiCustomize';
 quasarApiCustomize(Vue);
 
 import { shallowMount } from '@vue/test-utils';
