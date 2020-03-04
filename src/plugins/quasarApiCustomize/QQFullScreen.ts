@@ -9,21 +9,23 @@ export class QQFullScreenError extends ExtendableError {
 }
 
 export default {
-    async async(this: Vue, func: () => any) {
-        return new Promise(async (resolve, reject) => {
-            this.$q.fullscreen.request();
+    async async(this: Vue, func: () => any): Promise<void> {
+        return new Promise(
+            async (resolve, reject): Promise<void> => {
+                this.$q.fullscreen.request();
 
-            try {
-                await func();
+                try {
+                    await func();
 
-                this.$q.fullscreen.exit();
-                resolve();
-                return;
-            } catch {
-                this.$q.fullscreen.exit();
-                reject(new QQFullScreenError());
-                return;
-            }
-        });
+                    this.$q.fullscreen.exit();
+                    resolve();
+                    return;
+                } catch {
+                    this.$q.fullscreen.exit();
+                    reject(new QQFullScreenError());
+                    return;
+                }
+            },
+        );
     },
 };

@@ -12,7 +12,10 @@ export class QQBottomSheetCancelError extends ExtendableError {
 }
 
 export default {
-    async open(this: Vue, options: QQBottomSheetOptions) {
+    async open(
+        this: Vue,
+        options: QQBottomSheetOptions,
+    ): Promise<QQBottomSheetAction> {
         return new Promise<QQBottomSheetAction>(async (resolve, reject) => {
             this.$q
                 .bottomSheet(options)

@@ -8,15 +8,15 @@ export default class ImgUtil {
      * Imageをロード
      * @param url
      */
-    public static async loadImg(url: string) {
+    public static async loadImg(url: string): Promise<HTMLImageElement> {
         return new Promise<HTMLImageElement>(async (resolve, reject) => {
             const image = new Image();
             image.crossOrigin = 'anonymous';
 
-            image.onload = () => {
+            image.onload = (): void => {
                 resolve(image);
             };
-            image.onerror = e => {
+            image.onerror = (e): void => {
                 window.console.error('loadImg error');
                 reject(e);
             };
@@ -25,14 +25,14 @@ export default class ImgUtil {
         });
     }
 
-    public static async loadBlob(blob: Blob) {
+    public static async loadBlob(blob: Blob): Promise<HTMLImageElement> {
         return await new Promise<HTMLImageElement>((resolve, reject) => {
             const reader = new FileReader();
 
-            reader.onload = async () => {
+            reader.onload = async (): Promise<void> => {
                 resolve(await this.loadImg(reader.result as string));
             };
-            reader.onerror = e => {
+            reader.onerror = (e): void => {
                 window.console.error('loadBlob error');
                 reject(e);
             };
@@ -41,7 +41,7 @@ export default class ImgUtil {
         });
     }
 
-    public static buildFile(image: HTMLImageElement) {
+    public static buildFile(image: HTMLImageElement): File {
         const base64 = this.buildBase64(image);
         const buffer = this.buildBuffer(base64);
         const blob = new File(
@@ -54,7 +54,7 @@ export default class ImgUtil {
         return blob;
     }
 
-    public static buildBlob(image: HTMLImageElement) {
+    public static buildBlob(image: HTMLImageElement): Blob {
         const base64 = this.buildBase64(image);
         const buffer = this.buildBuffer(base64);
         const blob = new Blob([buffer.buffer] as BlobPart[], {
@@ -63,7 +63,7 @@ export default class ImgUtil {
         return blob;
     }
 
-    public static buildBuffer(base64: string) {
+    public static buildBuffer(base64: string): Uint8Array {
         const bin = atob(base64.replace(/^.*,/, ''));
         const buffer = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; i++) {
@@ -72,7 +72,7 @@ export default class ImgUtil {
         return buffer;
     }
 
-    public static buildBase64(image: HTMLImageElement) {
+    public static buildBase64(image: HTMLImageElement): string {
         const canvas = document.createElement('canvas');
         canvas.width = image.naturalWidth;
         canvas.height = image.naturalHeight;
@@ -90,7 +90,7 @@ export default class ImgUtil {
         y: number,
         width: number,
         height: number,
-    ) {
+    ): Promise<HTMLImageElement> {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
@@ -103,7 +103,7 @@ export default class ImgUtil {
         image: HTMLImageElement,
         maxWidth: number,
         maxHeight: number,
-    ) {
+    ): Promise<HTMLImageElement> {
         const sAspect = image.naturalWidth / image.naturalHeight;
         const dAspect = maxWidth / maxHeight;
         const dSize = {
@@ -138,7 +138,7 @@ export default class ImgUtil {
         image: HTMLImageElement,
         width: number,
         height: number,
-    ) {
+    ): Promise<HTMLImageElement> {
         const sAspect = image.naturalWidth / image.naturalHeight;
         const dAspect = width / height;
         const dSize = {

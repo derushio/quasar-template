@@ -18,7 +18,7 @@ export default class HelloWorld extends Vue {
     @Prop({ type: String, default: () => '' })
     protected msg!: string;
 
-    protected async mounted() {
+    protected async mounted(): Promise<void> {
         await this.$qqLoading.async(async () => {
             await aswait(1000);
         });
@@ -30,7 +30,7 @@ export default class HelloWorld extends Vue {
         dialog.ok();
     }
 
-    protected async onClick() {
+    protected async onClick(): Promise<void> {
         await this.$qqNotify.open('test');
     }
 }

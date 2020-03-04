@@ -1,4 +1,4 @@
-import Vue, { VueConstructor } from 'vue';
+import Vue, { VueConstructor, VNode } from 'vue';
 import {
     QDialog,
     QDialogOptions,
@@ -166,175 +166,186 @@ export default {
         def = undefined as any,
     ): Promise<any> {
         let dialog: DialogView;
-        const promise = new Promise<any>(async (resolve, reject) => {
-            const o = lo.clone(optionsProps);
-            const props = o.props || {};
-            delete o.props;
-            const options = o;
+        const promise = new Promise<any>(
+            async (resolve, reject): Promise<void> => {
+                const o = lo.clone(optionsProps);
+                const props = o.props || {};
+                delete o.props;
+                const options = o;
 
-            function hide(this: DialogView) {
-                document.body.removeChild(this.$root.$el);
-                this.$root.$destroy();
-            }
-
-            function ok(this: DialogView, data: any) {
-                hide.call(this);
-                resolve(data);
-            }
-
-            function cancel(this: DialogView) {
-                hide.call(this);
-                if (handleError) {
-                    reject(new QQDialogCancelError());
-                } else {
-                    resolve(def);
+                function hide(this: DialogView): void {
+                    document.body.removeChild(this.$root.$el);
+                    this.$root.$destroy();
                 }
-            }
 
-            this.$q.dialog({
-                ...options,
-                component: Vue.extend({
-                    components: {
-                        QDialog,
-                        QCard,
-                        QCardSection,
-                        QSeparator,
-                        QCardActions,
-                        QBtn,
-                        dialogComponent,
-                    },
-                    router: this.$router,
-                    store: this.$store,
-                    // For vue-i18n
-                    // i18n: this.$i18n,
-                    beforeCreate(this: DialogView) {
-                        dialog = this;
-                    },
-                    data: () => {
-                        return {
-                            state: DialogState.SHOW,
-                        };
-                    },
-                    methods: {
-                        async show(this: Vue) {
-                            dialog.$data.state = DialogState.SHOW;
-                            (this.$refs['dialog'] as any).show();
-                            await aswait(500);
+                function ok(this: DialogView, data: any): void {
+                    hide.call(this);
+                    resolve(data);
+                }
+
+                function cancel(this: DialogView): void {
+                    hide.call(this);
+                    if (handleError) {
+                        reject(new QQDialogCancelError());
+                    } else {
+                        resolve(def);
+                    }
+                }
+
+                this.$q.dialog({
+                    ...options,
+                    component: Vue.extend({
+                        components: {
+                            QDialog,
+                            QCard,
+                            QCardSection,
+                            QSeparator,
+                            QCardActions,
+                            QBtn,
+                            dialogComponent,
                         },
-                        async hide(this: Vue) {
-                            (this.$refs['dialog'] as any).hide();
-                            await aswait(500);
+                        router: this.$router,
+                        store: this.$store,
+                        // For vue-i18n
+                        // i18n: this.$i18n,
+                        beforeCreate(this: DialogView): void {
+                            dialog = this;
                         },
-                        async ok(this: Vue, data: any) {
-                            dialog.$data.state = DialogState.OK;
-                            await dialog.hide();
-                            ok.call(this as any, data);
+                        data: (): any => {
+                            return {
+                                state: DialogState.SHOW,
+                            };
                         },
-                        async cancel(this: Vue) {
-                            dialog.$data.state = DialogState.CANCEL;
-                            await dialog.hide();
-                            cancel.call(this as any);
+                        methods: {
+                            async show(this: Vue): Promise<void> {
+                                dialog.$data.state = DialogState.SHOW;
+                                (this.$refs['dialog'] as any).show();
+                                await aswait(500);
+                            },
+                            async hide(this: Vue): Promise<void> {
+                                (this.$refs['dialog'] as any).hide();
+                                await aswait(500);
+                            },
+                            async ok(this: Vue, data: any): Promise<void> {
+                                dialog.$data.state = DialogState.OK;
+                                await dialog.hide();
+                                ok.call(this as any, data);
+                            },
+                            async cancel(this: Vue): Promise<void> {
+                                dialog.$data.state = DialogState.CANCEL;
+                                await dialog.hide();
+                                cancel.call(this as any);
+                            },
                         },
-                    },
-                    render: h => {
-                        return h(
-                            'q-dialog',
-                            {
-                                ref: 'dialog',
-                                on: {
-                                    hide(this: null) {
-                                        if (
-                                            dialog.$data.state ===
-                                            DialogState.SHOW
-                                        ) {
-                                            dialog.cancel();
-                                        }
+                        render: (h): VNode => {
+                            return h(
+                                'q-dialog',
+                                {
+                                    ref: 'dialog',
+                                    on: {
+                                        hide(this: null): void {
+                                            if (
+                                                dialog.$data.state ===
+                                                DialogState.SHOW
+                                            ) {
+                                                dialog.cancel();
+                                            }
+                                        },
                                     },
                                 },
-                            },
-                            needCard
-                                ? [
-                                      h(
-                                          'q-card',
-                                          {
+                                needCard
+                                    ? [
+                                          h(
+                                              'q-card',
+                                              {
+                                                  staticClass:
+                                                      'q-dialog-plugin' +
+                                                      (this.$data.dark === true
+                                                          ? ' q-dialog-plugin--dark'
+                                                          : ''),
+                                                  style: `width: ${QQDialogWidth[size]}; max-width: 100%;`,
+                                              },
+                                              [
+                                                  h('q-card-section', [
+                                                      h('dialog-component', {
+                                                          props,
+                                                          on: {
+                                                              ok(
+                                                                  this: Vue,
+                                                                  data: any,
+                                                              ): void {
+                                                                  dialog.ok(
+                                                                      data,
+                                                                  );
+                                                              },
+                                                              cancel(
+                                                                  this: Vue,
+                                                              ): void {
+                                                                  dialog.cancel();
+                                                              },
+                                                          },
+                                                      }),
+                                                  ]),
+                                                  h('q-separator'),
+                                                  h(
+                                                      'q-card-actions',
+                                                      {
+                                                          props: {
+                                                              align: 'right',
+                                                          },
+                                                      },
+                                                      [
+                                                          h(
+                                                              'q-btn',
+                                                              {
+                                                                  props: {
+                                                                      flat: true,
+                                                                      color:
+                                                                          'positive',
+                                                                  },
+                                                                  on: {
+                                                                      click: (): void => {
+                                                                          dialog.ok(
+                                                                              undefined,
+                                                                          );
+                                                                      },
+                                                                  },
+                                                              },
+                                                              ['OK'],
+                                                          ),
+                                                      ],
+                                                  ),
+                                              ],
+                                          ),
+                                      ]
+                                    : [
+                                          h('dialog-component', {
+                                              props,
+                                              on: {
+                                                  ok(
+                                                      this: Vue,
+                                                      data: any,
+                                                  ): void {
+                                                      dialog.ok(data);
+                                                  },
+                                                  cancel(this: Vue): void {
+                                                      dialog.cancel();
+                                                  },
+                                              },
                                               staticClass:
                                                   'q-dialog-plugin' +
                                                   (this.$data.dark === true
                                                       ? ' q-dialog-plugin--dark'
                                                       : ''),
                                               style: `width: ${QQDialogWidth[size]}; max-width: 100%;`,
-                                          },
-                                          [
-                                              h('q-card-section', [
-                                                  h('dialog-component', {
-                                                      props,
-                                                      on: {
-                                                          ok(
-                                                              this: Vue,
-                                                              data: any,
-                                                          ) {
-                                                              dialog.ok(data);
-                                                          },
-                                                          cancel(this: Vue) {
-                                                              dialog.cancel();
-                                                          },
-                                                      },
-                                                  }),
-                                              ]),
-                                              h('q-separator'),
-                                              h(
-                                                  'q-card-actions',
-                                                  {
-                                                      props: { align: 'right' },
-                                                  },
-                                                  [
-                                                      h(
-                                                          'q-btn',
-                                                          {
-                                                              props: {
-                                                                  flat: true,
-                                                                  color:
-                                                                      'positive',
-                                                              },
-                                                              on: {
-                                                                  click: () => {
-                                                                      dialog.ok(
-                                                                          undefined,
-                                                                      );
-                                                                  },
-                                                              },
-                                                          },
-                                                          ['OK'],
-                                                      ),
-                                                  ],
-                                              ),
-                                          ],
-                                      ),
-                                  ]
-                                : [
-                                      h('dialog-component', {
-                                          props,
-                                          on: {
-                                              ok(this: Vue, data: any) {
-                                                  dialog.ok(data);
-                                              },
-                                              cancel(this: Vue) {
-                                                  dialog.cancel();
-                                              },
-                                          },
-                                          staticClass:
-                                              'q-dialog-plugin' +
-                                              (this.$data.dark === true
-                                                  ? ' q-dialog-plugin--dark'
-                                                  : ''),
-                                          style: `width: ${QQDialogWidth[size]}; max-width: 100%;`,
-                                      }),
-                                  ],
-                        );
-                    },
-                }),
-            });
-        });
+                                          }),
+                                      ],
+                            );
+                        },
+                    }),
+                });
+            },
+        );
 
         return Object.assign(promise, {
             ok: () => {

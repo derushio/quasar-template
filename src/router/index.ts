@@ -8,7 +8,7 @@ export default new Router({
         {
             path: '/',
             name: 'Home',
-            component: () => import('@/views/Home.vue'),
+            component: (): Promise<any> => import('@/views/Home.vue'),
         },
     ],
 });

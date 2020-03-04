@@ -23,42 +23,42 @@ export default class Logger {
         this.historyNum = historyNum;
     }
 
-    public log(message?: any, ...optionalParams: any[]) {
+    public log(message?: any, ...optionalParams: any[]): void {
         if (this.logLevel >= LOG_LEVEL.LOG) {
             window.console.log(message, ...optionalParams);
             this.logger(LOG_LEVEL.LOG, message, optionalParams);
         }
     }
 
-    public info(message?: any, ...optionalParams: any[]) {
+    public info(message?: any, ...optionalParams: any[]): void {
         if (this.logLevel >= LOG_LEVEL.INFO) {
             window.console.info(message, ...optionalParams);
             this.logger(LOG_LEVEL.INFO, message, optionalParams);
         }
     }
 
-    public debug(message?: any, ...optionalParams: any[]) {
+    public debug(message?: any, ...optionalParams: any[]): void {
         if (this.logLevel >= LOG_LEVEL.DEBUG) {
             window.console.debug(message, ...optionalParams);
             this.logger(LOG_LEVEL.DEBUG, message, optionalParams);
         }
     }
 
-    public table(...tabularData: any[]) {
+    public table(...tabularData: any[]): void {
         if (this.logLevel >= LOG_LEVEL.DEBUG) {
             window.console.table(tabularData);
             this.logger(LOG_LEVEL.DEBUG, tabularData);
         }
     }
 
-    public warn(message?: any, ...optionalParams: any[]) {
+    public warn(message?: any, ...optionalParams: any[]): void {
         if (this.logLevel >= LOG_LEVEL.WARN) {
             window.console.warn(message, ...optionalParams);
             this.logger(LOG_LEVEL.WARN, message, optionalParams);
         }
     }
 
-    public error(message?: any, ...optionalParams: any[]) {
+    public error(message?: any, ...optionalParams: any[]): void {
         if (this.logLevel >= LOG_LEVEL.ERROR) {
             window.console.error(message, ...optionalParams);
             this.logger(LOG_LEVEL.ERROR, message, optionalParams);
@@ -69,7 +69,7 @@ export default class Logger {
         level: LOG_LEVEL,
         message?: any,
         ...optionalParams: any[]
-    ) {
+    ): void {
         this.history.unshift({
             time: new Date().toString(),
             level: LOG_LEVEL[level],

@@ -9,7 +9,7 @@ export class QQAppVisibleError extends ExtendableError {
 }
 
 export default {
-    async async(this: Vue, func: () => any) {
+    async async(this: Vue, func: () => any): Promise<void> {
         return new Promise(async (resolve, reject) => {
             this.$q.appVisible = true;
 

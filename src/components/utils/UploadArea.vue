@@ -21,12 +21,12 @@ export default class UploadArea extends Vue {
 
     protected dragover = false;
 
-    protected onDrop(event: { dataTransfer: { files: File[] } }) {
+    protected onDrop(event: { dataTransfer: { files: File[] } }): void {
         this.dragover = false;
         this.syncedfiles = event.dataTransfer.files;
     }
 
-    protected onFileChange(event: { target: { files: File[] } }) {
+    protected onFileChange(event: { target: { files: File[] } }): void {
         this.dragover = false;
         this.syncedfiles = event.target.files;
     }

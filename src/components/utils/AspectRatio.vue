@@ -13,15 +13,15 @@ export default class AspectRatio extends Vue {
     @Prop({ type: Number })
     protected ratio?: number;
 
-    protected mounted() {
+    protected mounted(): void {
         this.changeRatio();
     }
 
-    protected updated() {
+    protected updated(): void {
         this.changeRatio();
     }
 
-    protected changeRatio() {
+    protected changeRatio(): void {
         if (this.ratio == null) {
             return;
         }

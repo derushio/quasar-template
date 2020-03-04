@@ -10,7 +10,7 @@ import QQNotify from '@/plugins/quasarApiCustomize/QQNotify';
 import QQFullScreen from '@/plugins/quasarApiCustomize/QQFullScreen';
 import QQAppVisible from '@/plugins/quasarApiCustomize/QQAppVisible';
 
-export function quasarApiCustomize(v: typeof Vue) {
+export function quasarApiCustomize(v: typeof Vue): void {
     registerComponentProgrammatic(v, '$qqLoading', QQLoading);
     registerComponentProgrammatic(v, '$qqDialog', QQDialog);
     registerComponentProgrammatic(v, '$qqBottomSheet', QQBottomSheet);

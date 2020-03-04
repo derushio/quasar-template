@@ -1,6 +1,6 @@
 import '@/plugins/registerServiceWorker';
 
-import Vue from 'vue';
+import Vue, { VNode } from 'vue';
 import '@/plugins/quasar';
 import { quasarApiCustomize } from '@/plugins/quasarApiCustomize';
 import { loggerApiCustomize } from '@/plugins/logger';
@@ -16,5 +16,5 @@ loggerApiCustomize(Vue);
 new Vue({
     router,
     store,
-    render: h => h(App),
+    render: (h): VNode => h(App),
 }).$mount('#app');
