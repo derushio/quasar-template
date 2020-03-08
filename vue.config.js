@@ -24,6 +24,12 @@ console.log('NODE_ENV:', env.NODE_ENV);
 const isProduct = env.NODE_ENV == 'production';
 
 module.exports = {
+    pwa: {
+        iconPaths: {
+            favicon32: './favicon.ico',
+            themeColor: '#027BE3',
+        },
+    },
     // 商用の場合はpathをきちんと設定したほうが良い
     publicPath: isProduct ? '/' : './',
 
