@@ -59,6 +59,7 @@
         "ts-node": "^8.6.2",
         "typescript": "~3.8.3",
         "vue-cli-plugin-pug": "^1.0.7",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "yargs": "^15.3.1"
     }
 }
