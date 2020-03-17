@@ -1,6 +1,6 @@
 <template lang="pug">
 .hello-world
-    p {{ msg }}
+    h2 {{ msg }}
     q-btn(@click='onClick') button
 </template>
 

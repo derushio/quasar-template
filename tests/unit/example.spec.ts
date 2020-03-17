@@ -1,16 +1,11 @@
-import Vue from 'vue';
-import { quasarApiCustomize } from '@/plugins/quasarApiCustomize';
-quasarApiCustomize(Vue);
+import ArrayUtil from '@/utils/ArrayUtil';
 
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+describe('ArrayUtil', () => {
+    it('range(5)', () => {
+        expect(ArrayUtil.range(5)).toEqual([0, 1, 2, 3, 4]);
+    });
 
-describe('HelloWorld.vue', () => {
-    it('renders props.msg when passed', () => {
-        const msg = 'new message';
-        const wrapper = shallowMount(HelloWorld, {
-            propsData: { msg },
-        });
-        expect(wrapper.text()).toMatch(msg);
+    it('range(1, 5)', () => {
+        expect(ArrayUtil.range(1, 5)).toEqual([1, 2, 3, 4, 5]);
     });
 });
