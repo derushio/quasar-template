@@ -4,7 +4,7 @@
         q-header.bg-primary.text-white(elevated)
             q-toolbar
                 q-btn(flat round dense icon='menu' @click='drawer = !drawer')
-                q-btn(stretch flat): q-toolbar-title {{ appName }}
+                q-btn(stretch flat): q-toolbar-title: h1.title {{ appName }}
         q-drawer(overlay elevated content-class='bg-grey-3' v-model='drawer')
         .outer-drawer(v-if='drawer' @click='drawer = false')
 
@@ -50,6 +50,13 @@ export default class App extends Vue {
 #app {
     background-color: transparent;
     position: relative;
+}
+
+.title {
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    font-weight: inherit;
 }
 
 .outer-drawer {
